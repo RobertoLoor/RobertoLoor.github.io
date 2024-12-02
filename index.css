@@ -45,11 +45,6 @@ h2 {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: justify;
-}
-
-/* Estilo del texto inicial */
-.content p {
     font-size: 1rem;
     line-height: 1.5;
-    margin: 0;
 }
