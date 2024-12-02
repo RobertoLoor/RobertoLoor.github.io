@@ -34,7 +34,7 @@ h2 {
     font-size: 1rem;
 }
 
-/* Contenedor del área de escritura */
+/* Contenedor del texto */
 .content {
     margin-top: 20px;
     width: 100%;
@@ -47,14 +47,9 @@ h2 {
     text-align: justify;
 }
 
-/* Área de texto */
-textarea {
-    width: 100%;
-    height: 200px;
-    border: 1px solid #3b82f6;
-    border-radius: 5px;
-    font-family: 'Georgia', serif;
+/* Estilo del texto inicial */
+.content p {
     font-size: 1rem;
-    padding: 10px;
-    resize: none;
+    line-height: 1.5;
+    margin: 0;
 }
