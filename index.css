@@ -1,52 +1,21 @@
-/* Configuración general del cuerpo */
+/* styles.css */
 body {
-    margin: 0;
-    font-family: 'Georgia', serif;
-    background: linear-gradient(to bottom, #1e3a8a, #3b82f6);
-    color: #ffffff;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
     min-height: 100vh;
-}
-
-/* Título principal */
-h1 {
-    font-size: 3rem;
-    margin: 20px 0 10px;
-    text-align: center;
-}
-
-/* Subtítulo */
-h2 {
-    font-size: 1.2rem;
-    font-weight: lighter;
     margin: 0;
-    text-align: center;
-    color: #d1d5db;
-}
-
-/* Fecha */
-.date {
-    margin-top: 100px; /* Espacio de 10 cm aproximadamente */
-    font-weight: bold;
-    font-size: 1rem;
+    font-family: Arial, sans-serif;
     text-align: center;
 }
 
-/* Contenedor del texto */
-.content {
-    margin-top: 50px;
-    width: 80%;
-    max-width: 600px;
-    background-color: #ffffff;
-    color: #1e3a8a;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: justify;
-    font-size: 1rem;
-    line-height: 1.5;
-    border: 2px solid #3b82f6; /* Borde del cuadro blanco */
+h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
 }
+
+p {
+    margin: 0.2em 0;
+}
+
