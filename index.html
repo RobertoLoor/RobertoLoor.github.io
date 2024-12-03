@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyBlog</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h1>MyBlog</h1>
-    <h2>por Roberto Loor</h2>
-    <div class="date">
-        <!-- La fecha se genera automáticamente con JavaScript -->
-    </div>
-    <div class="content">
-        qwertyuiop
-    </div>
-
-    <script>
-        // Genera la fecha actual y la inserta en el elemento con la clase 'date'
-        const dateElement = document.querySelector('.date');
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        dateElement.textContent = new Date().toLocaleDateString('es-ES', options);
-    </script>
+    <p><strong>por Roberto Loor</strong></p>
+    <p>3 de diciembre de 2024</p>
+    <p>qwertyuiop</p>
 </body>
 </html>
+
 
 
