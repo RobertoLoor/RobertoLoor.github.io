@@ -1,13 +1,12 @@
-/* styles.css */
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start; /* Para que los elementos empiecen desde la parte superior */
+    align-items: flex-end; /* Para alinear los elementos a la derecha */
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    text-align: center;
+    text-align: right; /* Alinea el texto a la derecha */
 }
 
 h1 {
@@ -18,4 +17,3 @@ h1 {
 p {
     margin: 0.2em 0;
 }
-
