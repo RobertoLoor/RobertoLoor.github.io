@@ -12,16 +12,13 @@ body {
 h1 {
     font-size: 2em;
     margin-bottom: 0.5em;
-    align-items: flex-end; /* Para alinear los elementos a la derecha */
 }
 
 h2 {
     font-size: 1em;
     margin-bottom: 0.5em;
-    align-items: flex-end; /* Para alinear los elementos a la derecha */
 }
 
 p {
     margin: 0.2em 0;
-    align-items: flex-end; /* Para alinear los elementos a la derecha */
 }
