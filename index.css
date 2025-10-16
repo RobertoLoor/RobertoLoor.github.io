@@ -1,136 +1,88 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: "Times New Roman", Times, serif;
-    background: linear-gradient(-45deg, #0b1a3c, #142952, #0e2048, #1b3070);
-    background-size: 400% 400%;
-    animation: gradientMove 15s ease infinite;
-    color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2em;
-    text-align: center;
+  background-color: #0b1b3a; /* azul oscuro elegante */
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-/* Animación del fondo */
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* --- Encabezado --- */
 header {
-    margin-bottom: 2em;
+  text-align: center;
+  margin-top: 2em;
 }
 
 h1 {
-    font-size: 2.5em;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  font-size: 2.2em;
+  margin-bottom: 0.3em;
+  color: #a0c4ff;
 }
 
-.subtitle {
-    color: #d0d8f0;
-    font-size: 1.1em;
+.subtitulo {
+  font-size: 1.1em;
+  color: #c9d6ff;
 }
 
-/* --- Enlace a GitHub --- */
-.github-link {
-    margin-top: 0.5em;
+.materias {
+  width: 80%;
+  max-width: 700px;
+  margin: 2em 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5em;
+  border-radius: 15px;
 }
 
-.github-link a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    border: 2px solid #7ea3ff;
-    padding: 0.4em 0.8em;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 8px rgba(126, 163, 255, 0.4);
+.materias ul {
+  list-style: none;
+  padding: 0;
 }
 
-.github-link a:hover {
-    background-color: #7ea3ff;
-    color: #0b1a3c;
-    box-shadow: 0 0 20px rgba(126, 163, 255, 0.8);
+.materias li::before {
+  content: "✔️ ";
+  color: #76ff9e;
 }
 
-/* --- Sección principal --- */
-main {
-    max-width: 800px;
-    width: 100%;
+h2 {
+  color: #89c2ff;
+  margin-bottom: 1em;
 }
 
-.intro {
-    margin-bottom: 2em;
+.progress-container {
+  text-align: center;
+  margin: 2em auto;
 }
 
-.intro p {
-    color: #dfe3f3;
-    font-size: 1.1em;
+.progress-bar {
+  width: 80%;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.5em auto;
 }
 
-/* --- Asignaturas --- */
-.subjects h3 {
-    color: #7ea3ff;
-    margin-top: 1.5em;
-    margin-bottom: 0.8em;
-    text-shadow: 0 0 10px rgba(126, 163, 255, 0.3);
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #7ea3ff, #76ff9e);
+  border-radius: 10px 0 0 10px;
+  transition: width 1s ease-in-out;
 }
 
-.subjects ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    text-align: left;
-    max-width: 600px;
-}
-
-.subjects li {
-    background: rgba(255, 255, 255, 0.07);
-    border-left: 4px solid #7ea3ff;
-    border-radius: 10px;
-    padding: 0.8em 1em;
-    margin-bottom: 0.6em;
-    font-size: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(4px);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.subjects li:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(126, 163, 255, 0.4);
-}
-
-.subjects li em {
-    font-style: normal;
-    color: #bcd2ff;
-}
-
-.subjects li::before {
-    content: "✅";
-    margin-right: 10px;
-    color: #76ff9e;
-    text-shadow: 0 0 8px rgba(118, 255, 158, 0.6);
-}
-
-/* --- Pie de página --- */
 footer {
-    margin-top: 3em;
-    font-size: 0.9em;
-    color: #b0b8d8;
-    text-shadow: 0 0 8px rgba(176, 184, 216, 0.3);
+  margin-top: auto;
+  padding: 1em;
+  text-align: center;
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 100%;
+}
+
+footer a {
+  color: #76ff9e;
+  text-decoration: none;
 }
 
 
