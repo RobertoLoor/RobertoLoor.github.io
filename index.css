@@ -93,3 +93,25 @@ footer {
     color: #666;
 }
 
+/* (tus estilos anteriores...) */
+
+.github-link {
+    margin-top: 0.5em;
+}
+
+.github-link a {
+    color: #1f3c88;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #1f3c88;
+    padding: 0.3em 0.6em;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.github-link a:hover {
+    background-color: #1f3c88;
+    color: #fff;
+}
+
+
