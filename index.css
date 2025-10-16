@@ -6,8 +6,10 @@
 
 body {
     font-family: "Times New Roman", Times, serif;
-    background: linear-gradient(to bottom right, #f8fafc, #e7ecf2);
-    color: #222;
+    background: linear-gradient(-45deg, #0b1a3c, #142952, #0e2048, #1b3070);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    color: #f0f0f0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,20 +18,52 @@ body {
     text-align: center;
 }
 
+/* Animación del fondo */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Encabezado --- */
 header {
     margin-bottom: 2em;
 }
 
 h1 {
     font-size: 2.5em;
-    color: #1f3c88;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .subtitle {
-    color: #444;
+    color: #d0d8f0;
     font-size: 1.1em;
 }
 
+/* --- Enlace a GitHub --- */
+.github-link {
+    margin-top: 0.5em;
+}
+
+.github-link a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #7ea3ff;
+    padding: 0.4em 0.8em;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px rgba(126, 163, 255, 0.4);
+}
+
+.github-link a:hover {
+    background-color: #7ea3ff;
+    color: #0b1a3c;
+    box-shadow: 0 0 20px rgba(126, 163, 255, 0.8);
+}
+
+/* --- Sección principal --- */
 main {
     max-width: 800px;
     width: 100%;
@@ -40,14 +74,16 @@ main {
 }
 
 .intro p {
-    color: #333;
+    color: #dfe3f3;
     font-size: 1.1em;
 }
 
+/* --- Asignaturas --- */
 .subjects h3 {
-    color: #1f3c88;
+    color: #7ea3ff;
     margin-top: 1.5em;
     margin-bottom: 0.8em;
+    text-shadow: 0 0 10px rgba(126, 163, 255, 0.3);
 }
 
 .subjects ul {
@@ -59,59 +95,43 @@ main {
 }
 
 .subjects li {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.07);
+    border-left: 4px solid #7ea3ff;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     padding: 0.8em 1em;
     margin-bottom: 0.6em;
     font-size: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    backdrop-filter: blur(4px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .subjects li:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 0 15px rgba(126, 163, 255, 0.4);
 }
 
 .subjects li em {
     font-style: normal;
-    color: #555;
+    color: #bcd2ff;
 }
 
 .subjects li::before {
     content: "✅";
     margin-right: 10px;
-    color: #2e8b57;
+    color: #76ff9e;
+    text-shadow: 0 0 8px rgba(118, 255, 158, 0.6);
 }
 
+/* --- Pie de página --- */
 footer {
     margin-top: 3em;
     font-size: 0.9em;
-    color: #666;
+    color: #b0b8d8;
+    text-shadow: 0 0 8px rgba(176, 184, 216, 0.3);
 }
 
-/* (tus estilos anteriores...) */
-
-.github-link {
-    margin-top: 0.5em;
-}
-
-.github-link a {
-    color: #1f3c88;
-    text-decoration: none;
-    font-weight: bold;
-    border: 2px solid #1f3c88;
-    padding: 0.3em 0.6em;
-    border-radius: 5px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.github-link a:hover {
-    background-color: #1f3c88;
-    color: #fff;
-}
 
 
