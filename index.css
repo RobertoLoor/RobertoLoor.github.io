@@ -36,11 +36,32 @@ body::after {
   border-radius: 50%;
   filter: blur(120px);
   animation: float-bg 7s ease-in-out infinite alternate-reverse;
+  z-index: 0; /* Fondo más profundo */
 }
 
 @keyframes float-bg {
   0% { transform: translate(0, 0); }
   100% { transform: translate(20px, 30px); }
+}
+
+/* === IMAGEN DE FONDO === */
+.paddle-img {
+  position: absolute; /* ya no fixed */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(180px, 60vw, 420px);
+  opacity: 0.9;
+  filter: drop-shadow(0 0 12px var(--color-accent));
+  animation: float-paddle 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1; /* debajo del contenido, encima del fondo */
+}
+
+@keyframes float-paddle {
+  0% { transform: translate(-50%, -50%) translate(0, 0); }
+  50% { transform: translate(-50%, -50%) translate(15px, -10px); }
+  100% { transform: translate(-50%, -50%) translate(0, 0); }
 }
 
 /* === CABECERA === */
@@ -51,7 +72,7 @@ header {
   gap: 10px;
   padding: 20px;
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 3; /* Encima de la imagen */
   position: relative;
 }
 
@@ -72,14 +93,15 @@ header button:hover {
   box-shadow: 0 0 16px var(--color-accent);
 }
 
-/* === TÍTULO PRINCIPAL === */
+/* === TÍTULO === */
 h1 {
   margin-top: 40px;
-  font-size: clamp(36px, 8vw, 60px); /* se adapta a la pantalla */
+  font-size: clamp(36px, 8vw, 60px);
   font-weight: 700;
   letter-spacing: 3px;
   text-shadow: 0 0 18px var(--color-accent);
-  z-index: 2;
+  z-index: 3;
+  position: relative;
 }
 
 /* === BOTONES PRINCIPALES === */
@@ -89,7 +111,8 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
-  z-index: 2;
+  z-index: 3;
+  position: relative;
 }
 
 .main-buttons button {
@@ -97,7 +120,7 @@ h1 {
   border: 2px solid var(--color-accent);
   padding: 14px 32px;
   border-radius: 10px;
-  font-size: clamp(14px, 3.5vw, 20px); /* adaptable */
+  font-size: clamp(14px, 3.5vw, 20px);
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
@@ -127,27 +150,7 @@ h1 {
   box-shadow: 0 0 20px var(--color-accent);
 }
 
-/* === IMAGEN CENTRAL === */
-.paddle-img {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(180px, 60vw, 420px); /* adaptable al tamaño de pantalla */
-  opacity: 0.95;
-  filter: drop-shadow(0 0 12px var(--color-accent));
-  animation: float-paddle 5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes float-paddle {
-  0% { transform: translate(-50%, -50%) translate(0, 0); }
-  50% { transform: translate(-50%, -50%) translate(15px, -10px); }
-  100% { transform: translate(-50%, -50%) translate(0, 0); }
-}
-
-/* === MEDIA QUERIES (ajustes móviles específicos) === */
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
   header {
     justify-content: center;
@@ -169,4 +172,10 @@ h1 {
     width: 80%;
     max-width: 280px;
   }
+
+  .paddle-img {
+    width: clamp(140px, 70vw, 300px);
+    opacity: 0.7;
+  }
 }
+  
