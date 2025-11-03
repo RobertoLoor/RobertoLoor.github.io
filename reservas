@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservas | BIPADEL</title>
+  <link rel="stylesheet" href="reservas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h2>BIPADEL</h2>
+    <nav>
+      <button>Inicio</button>
+      <button>Mi cuenta</button>
+      <button>Contacto</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="filters">
+      <h3>Reservar pista</h3>
+      <div class="filter-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha">
+
+        <label for="tipo">Tipo:</label>
+        <select id="tipo">
+          <option value="todas">Todas</option>
+          <option value="interior">Interior</option>
+          <option value="exterior">Exterior</option>
+        </select>
+
+        <label for="estado">Disponibilidad:</label>
+        <select id="estado">
+          <option value="todas">Todas</option>
+          <option value="disponible">Disponible</option>
+          <option value="ocupada">Ocupada</option>
+        </select>
+
+        <button class="buscar-btn">Buscar</button>
+      </div>
+    </section>
+
+    <section class="results">
+      <div class="card disponible">
+        <h4>Pista 1 (Interior)</h4>
+        <p>Hora: 18:00 - 19:00</p>
+        <p>Profesor: Laura Gómez</p>
+        <button class="reservar-btn">Reservar</button>
+      </div>
+
+      <div class="card ocupada">
+        <h4>Pista 2 (Exterior)</h4>
+        <p>Hora: 19:00 - 20:00</p>
+        <p>Profesor: —</p>
+        <button class="ocupada-btn" disabled>Ocupada</button>
+      </div>
+
+      <div class="card disponible">
+        <h4>Pista 3 (Interior)</h4>
+        <p>Hora: 20:00 - 21:00</p>
+        <p>Profesor: Carlos Ruiz</p>
+        <button class="reservar-btn">Reservar</button>
+      </div>
+    </section>
+  </main>
+
+  <img class="paddle-img" src="padel.png" alt="Pala de pádel">
+</body>
+</html>
