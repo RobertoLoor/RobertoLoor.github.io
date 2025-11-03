@@ -1,89 +1,58 @@
 body {
-  background-color: #0b1b3a; /* azul oscuro elegante */
-  color: white;
-  font-family: "Times New Roman", Times, serif;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #001f3f;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   min-height: 100vh;
 }
 
 header {
-  text-align: center;
-  margin-top: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+header button {
+  background-color: #39ff14;
+  border: none;
+  padding: 10px 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
 }
 
 h1 {
-  font-size: 2.2em;
-  margin-bottom: 0.3em;
-  color: #a0c4ff;
-}
-
-.subtitulo {
-  font-size: 1.1em;
-  color: #c9d6ff;
-}
-
-.materias {
-  width: 80%;
-  max-width: 700px;
-  margin: 2em 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 1.5em;
-  border-radius: 15px;
-}
-
-.materias ul {
-  list-style: none;
-  padding: 0;
-}
-
-.materias li::before {
-  content: "✔️ ";
-  color: #76ff9e;
-}
-
-h2 {
-  color: #89c2ff;
-  margin-bottom: 1em;
-}
-
-.progress-container {
+  margin-top: 40px;
+  font-size: 3rem;
   text-align: center;
-  margin: 2em auto;
 }
 
-.progress-bar {
-  width: 80%;
-  height: 20px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 0.5em auto;
+.main-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 30px;
 }
 
-.progress {
-  height: 100%;
-  background: linear-gradient(90deg, #7ea3ff, #76ff9e);
-  border-radius: 10px 0 0 10px;
-  transition: width 1s ease-in-out;
-}
-
-footer {
-  margin-top: auto;
-  padding: 1em;
-  text-align: center;
-  font-size: 0.9em;
-  background-color: rgba(255, 255, 255, 0.05);
-  width: 100%;
-}
-
-footer a {
-  color: #76ff9e;
+.main-buttons a {
+  background-color: #39ff14;
+  padding: 15px 30px;
   text-decoration: none;
+  color: #001f3f;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.2s;
 }
 
+.main-buttons a:hover {
+  transform: scale(1.1);
+}
 
 
