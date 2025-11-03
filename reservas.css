@@ -20,24 +20,22 @@ body {
   position: relative;
 }
 
-/* Imagen flotante central */
+/* Imagen movida a la esquina inferior derecha */
 .paddle-img {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 420px;
-  max-width: 70vw;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 12px var(--color-accent));
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 10px var(--color-accent));
   pointer-events: none;
   z-index: 1;
-  animation: float 5s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-  50% { transform: translate(-50%, -50%) translateY(-10px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 /* Glow verde de fondo */
