@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
+:root {
+  --color-base: #001f3f;           /* Fondo azul oscuro */
+  --color-accent: rgba(0, 180, 255, 0.9); /* Azul neón */
+  --color-accent-light: rgba(0, 180, 255, 0.4);
+  --color-shadow: rgba(0, 180, 255, 0.35);
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background: #001f3f;
+  background: var(--color-base);
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -15,7 +22,7 @@ body {
   position: relative;
 }
 
-/* Fondo animado con ondas verdes */
+/* Fondo animado con ondas suaves */
 .paddle-img {
   position: fixed;
   left: 50%;
@@ -24,9 +31,9 @@ body {
   width: 420px;
   max-width: 70vw;
   opacity: 0.9;
-  filter: drop-shadow(0 0 6px rgba(57,255,20,0.1));
-  animation: float 5s ease-in-out infinite;
-  pointer-events: none; /* no interfiere con clicks */
+  filter: drop-shadow(0 0 6px var(--color-shadow));
+  animation: float-paddle 5s ease-in-out infinite;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -35,7 +42,14 @@ body {
   opacity: 1;
 }
 
+/* Animación de flotación de paddle */
+@keyframes float-paddle {
+  0% { transform: translate(-50%, -50%) translate(0, 0); }
+  50% { transform: translate(-50%, -50%) translate(15px, -10px); }
+  100% { transform: translate(-50%, -50%) translate(0, 0); }
+}
 
+/* Glow radial en fondo */
 body::after {
   content: "";
   position: absolute;
@@ -43,15 +57,15 @@ body::after {
   right: -200px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(57,255,20,0.08), transparent 60%);
+  background: radial-gradient(circle, rgba(0,180,255,0.08), transparent 60%);
   border-radius: 50%;
   filter: blur(120px);
-  animation: float 7s ease-in-out infinite alternate-reverse;
+  animation: float-bg 7s ease-in-out infinite alternate-reverse;
 }
 
-@keyframes float {
+@keyframes float-bg {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(40px, 60px); }
+  100% { transform: translate(20px, 30px); }
 }
 
 header {
@@ -65,7 +79,7 @@ header {
 }
 
 header button {
-  background-color: rgba(57,255,20,0.9);
+  background-color: var(--color-accent);
   border: none;
   padding: 12px 20px;
   border-radius: 8px;
@@ -73,13 +87,13 @@ header button {
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
-  color: #001f3f;
-  box-shadow: 0 0 8px rgba(57,255,20,0.35);
+  color: var(--color-base);
+  box-shadow: 0 0 8px var(--color-shadow);
 }
 
 header button:hover {
   transform: scale(1.07);
-  box-shadow: 0 0 14px rgba(57,255,20,0.45);
+  box-shadow: 0 0 14px var(--color-accent-light);
 }
 
 h1 {
@@ -87,7 +101,7 @@ h1 {
   font-size: 60px;
   font-weight: 700;
   letter-spacing: 3px;
-  text-shadow: 0 0 18px rgba(57,255,20,0.7);
+  text-shadow: 0 0 18px var(--color-accent-light);
   z-index: 2;
 }
 
@@ -99,7 +113,7 @@ h1 {
 }
 
 .main-buttons button {
-  background-color: rgba(57,255,20,0.9);
+  background-color: var(--color-accent);
   border: none;
   padding: 18px 45px;
   border-radius: 12px;
@@ -107,13 +121,12 @@ h1 {
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
-  color: #001f3f;
-  box-shadow: 0 0 10px rgba(57,255,20,0.4);
+  color: var(--color-base);
+  box-shadow: 0 0 10px var(--color-shadow);
   position: relative;
   overflow: hidden;
 }
 
-/* Brillo animado interno */
 .main-buttons button::before {
   content: "";
   position: absolute;
@@ -131,14 +144,8 @@ h1 {
 
 .main-buttons button:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 18px rgba(57,255,20,0.55);
-}}
-
-.corner-img:hover {
-  transform: scale(1.1) rotate(-2deg);
-  opacity: 1;
+  box-shadow: 0 0 18px var(--color-accent-light);
 }
-
 
 .corner-img {
   position: fixed;
@@ -146,8 +153,8 @@ h1 {
   right: 20px;
   width: 140px;
   opacity: 0.85;
-  filter: drop-shadow(0 0 6px rgba(57,255,20,0.35));
-  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px var(--color-shadow));
+  animation: float-corner 4s ease-in-out infinite;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -156,7 +163,7 @@ h1 {
   opacity: 1;
 }
 
-@keyframes float {
+@keyframes float-corner {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0px); }
