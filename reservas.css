@@ -20,7 +20,7 @@ body {
   position: relative;
 }
 
-/* Imagen movida a la esquina inferior derecha */
+/* Imagen flotante en la esquina inferior derecha */
 .paddle-img {
   position: fixed;
   bottom: 20px;
@@ -210,3 +210,4 @@ input, select {
   border-color: gray;
   color: gray;
 }
+
