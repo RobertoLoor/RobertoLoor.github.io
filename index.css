@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 :root {
-  --color-base: #001f3f;           /* Fondo azul oscuro */
-  --color-accent: rgba(0, 255, 57, 0.9); /* Verde neón */
+  --color-base: #001f3f;           
+  --color-accent: rgba(0, 255, 57, 0.9);
   --color-accent-light: rgba(0, 255, 57, 0.4);
   --color-shadow: rgba(0, 255, 57, 0.35);
 }
 
+/* === ESTRUCTURA GLOBAL === */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
   background: var(--color-base);
-  color: #ffffff;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,35 +21,10 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  text-align: center;
 }
 
-/* Imagen central con brillo verde neón */
-.paddle-img {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 420px;
-  max-width: 70vw;
-  opacity: 0.95;
-  filter: drop-shadow(0 0 12px var(--color-accent));
-  animation: float-paddle 5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.paddle-img:hover {
-  transform: translate(-50%, -50%) scale(1.02);
-  opacity: 1;
-}
-
-@keyframes float-paddle {
-  0% { transform: translate(-50%, -50%) translate(0, 0); }
-  50% { transform: translate(-50%, -50%) translate(15px, -10px); }
-  100% { transform: translate(-50%, -50%) translate(0, 0); }
-}
-
-/* Glow radial en fondo */
+/* === EFECTO LUZ DE FONDO === */
 body::after {
   content: "";
   position: absolute;
@@ -67,6 +43,7 @@ body::after {
   100% { transform: translate(20px, 30px); }
 }
 
+/* === CABECERA === */
 header {
   width: 100%;
   display: flex;
@@ -75,48 +52,52 @@ header {
   padding: 20px;
   box-sizing: border-box;
   z-index: 2;
+  position: relative;
 }
 
 header button {
-  background-color: var(--color-base);
+  background-color: transparent;
   border: 2px solid var(--color-accent);
-  padding: 12px 20px;
+  padding: 10px 18px;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
   color: var(--color-accent);
-  box-shadow: 0 0 12px var(--color-shadow);
+  transition: 0.3s;
+  box-shadow: 0 0 10px var(--color-shadow);
 }
 
 header button:hover {
   transform: scale(1.07);
-  box-shadow: 0 0 18px var(--color-accent);
+  box-shadow: 0 0 16px var(--color-accent);
 }
 
+/* === TÍTULO PRINCIPAL === */
 h1 {
   margin-top: 40px;
-  font-size: 60px;
+  font-size: clamp(36px, 8vw, 60px); /* se adapta a la pantalla */
   font-weight: 700;
   letter-spacing: 3px;
   text-shadow: 0 0 18px var(--color-accent);
   z-index: 2;
 }
 
+/* === BOTONES PRINCIPALES === */
 .main-buttons {
-  margin-top: 50px;
+  margin-top: 40px;
   display: flex;
-  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
   z-index: 2;
 }
 
 .main-buttons button {
-  background-color: var(--color-base);
+  background-color: transparent;
   border: 2px solid var(--color-accent);
-  padding: 18px 45px;
-  border-radius: 12px;
-  font-size: 20px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: clamp(14px, 3.5vw, 20px); /* adaptable */
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
@@ -146,28 +127,46 @@ h1 {
   box-shadow: 0 0 20px var(--color-accent);
 }
 
-/* Imagen esquina */
-.corner-img {
+/* === IMAGEN CENTRAL === */
+.paddle-img {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 140px;
-  opacity: 0.85;
-  filter: drop-shadow(0 0 10px var(--color-shadow));
-  animation: float-corner 4s ease-in-out infinite;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(180px, 60vw, 420px); /* adaptable al tamaño de pantalla */
+  opacity: 0.95;
+  filter: drop-shadow(0 0 12px var(--color-accent));
+  animation: float-paddle 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.corner-img:hover {
-  transform: scale(1.07);
-  opacity: 1;
+@keyframes float-paddle {
+  0% { transform: translate(-50%, -50%) translate(0, 0); }
+  50% { transform: translate(-50%, -50%) translate(15px, -10px); }
+  100% { transform: translate(-50%, -50%) translate(0, 0); }
 }
 
-@keyframes float-corner {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
+/* === MEDIA QUERIES (ajustes móviles específicos) === */
+@media (max-width: 768px) {
+  header {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  header button {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  .main-buttons {
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .main-buttons button {
+    width: 80%;
+    max-width: 280px;
+  }
 }
-
-
-
