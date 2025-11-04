@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Chat BIPADEL</title>
+  <!-- Firebase SDKs (versiones "compat") -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <link rel="stylesheet" href="chat.css">
@@ -18,29 +19,29 @@
   </div>
 
   <script>
-    // 🔥 Configuración Firebase — pega aquí tu firebaseConfig real
+    // Tu configuración de Firebase (pegada tal cual)
     const firebaseConfig = {
-  apiKey: "AIzaSyD9uBxR0wtYEeLmwep64rSC5WM-fm1ZMH0",
-  authDomain: "bipadel-chat.firebaseapp.com",
-  databaseURL: "https://bipadel-chat-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "bipadel-chat",
-  storageBucket: "bipadel-chat.firebasestorage.app",
-  messagingSenderId: "572653861993",
-  appId: "1:572653861993:web:0ee032ceda74371b70f6f8",
-  measurementId: "G-718GP5KVND"
-};
+      apiKey: "AIzaSyD9uBxR0wtYEeLmwep64rSC5WM-fm1ZMH0",
+      authDomain: "bipadel-chat.firebaseapp.com",
+      databaseURL: "https://bipadel-chat-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "bipadel-chat",
+      storageBucket: "bipadel-chat.firebasestorage.app",
+      messagingSenderId: "572653861993",
+      appId: "1:572653861993:web:0ee032ceda74371b70f6f8",
+      measurementId: "G-718GP5KVND"
+    };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    // Recuperar nombre del usuario del localStorage
+    // Recuperar nombre del usuario (puedes guardar esto al iniciar sesión)
     const usuario = localStorage.getItem("usuarioActivo") || "Invitado";
 
-    // Referencia al nodo de mensajes
+    // Referencia al nodo "mensajes" en la base de datos
     const chatRef = db.ref("mensajes");
 
-    // Escuchar mensajes en tiempo real
+    // Escuchar nuevos mensajes
     chatRef.on("child_added", (snapshot) => {
       const msg = snapshot.val();
       const chatBox = document.getElementById("chat-box");
@@ -51,7 +52,7 @@ const analytics = getAnalytics(app);
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // Enviar nuevo mensaje
+    // Enviar mensaje
     function enviarMensaje() {
       const texto = document.getElementById("mensaje").value.trim();
       if (texto === "") return;
