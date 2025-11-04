@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Usuario | BIPADEL</title>
+  <link rel="stylesheet" href="inicio.css">
+</head>
+<body>
+  <header>
+    <h2>BIPADEL</h2>
+    <nav>
+      <button onclick="window.location.href='reservas.html'">Reservas</button>
+      <button>Tienda</button>
+      <button>Chat</button>
+      <button id="logout">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h3 id="saludo">Bienvenido/a</h3>
+      <p>Gestiona tus reservas, compra productos o comunícate con profesores.</p>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h4>Reservas</h4>
+        <p>Consulta, crea o cancela tus reservas.</p>
+        <button onclick="window.location.href='reservas.html'">Ir</button>
+      </div>
+
+      <div class="card">
+        <h4>Tienda</h4>
+        <p>Compra palas, pelotas y accesorios.</p>
+        <button>Explorar</button>
+      </div>
+
+      <div class="card">
+        <h4>Chat</h4>
+        <p>Habla con profesores o administración.</p>
+        <button>Entrar</button>
+      </div>
+    </section>
+  </main>
+
+  <img class="paddle-img" src="padel.png" alt="Pala de pádel">
+
+  <script>
+    const usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (!usuario) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('saludo').textContent = `Bienvenido/a, ${usuario.nombre}`;
+    }
+
+    document.getElementById('logout').addEventListener('click', () => {
+      localStorage.removeItem('usuarioActivo');
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
