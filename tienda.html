@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIPADEL | Tienda</title>
+  <link rel="stylesheet" href="tienda.css">
+</head>
+<body>
+  <header>
+    <h2>BIPADEL Tienda</h2>
+    <button onclick="window.location.href='inicio.html'">Volver</button>
+  </header>
+
+  <main>
+    <section class="productos">
+      <div class="producto" data-nombre="Pala Pro" data-precio="120">
+        <h4>Pala Pro</h4>
+        <p>Alta precisión y potencia.</p>
+        <button>Añadir (120€)</button>
+      </div>
+
+      <div class="producto" data-nombre="Pelotas Premium" data-precio="8">
+        <h4>Pelotas Premium</h4>
+        <p>Pack de 3 unidades.</p>
+        <button>Añadir (8€)</button>
+      </div>
+
+      <div class="producto" data-nombre="Camiseta Técnica" data-precio="25">
+        <h4>Camiseta Técnica</h4>
+        <p>Ligera y transpirable.</p>
+        <button>Añadir (25€)</button>
+      </div>
+    </section>
+
+    <aside class="carrito">
+      <h3>🛒 Tu carrito</h3>
+      <ul id="lista-carrito"></ul>
+      <p>Total: <span id="total">0</span>€</p>
+      <button id="comprar">Finalizar compra</button>
+    </aside>
+  </main>
+
+  <script>
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const lista = document.getElementById('lista-carrito');
+    const totalTxt = document.getElementById('total');
+
+    function renderCarrito() {
+      lista.innerHTML = carrito.map(p => `<li>${p.nombre} - ${p.precio}€</li>`).join('');
+      totalTxt.textContent = carrito.reduce((t, p) => t + p.precio, 0);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    document.querySelectorAll('.producto button').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const card = e.target.closest('.producto');
+        const producto = {
+          nombre: card.dataset.nombre,
+          precio: parseFloat(card.dataset.precio)
+        };
+        carrito.push(producto);
+        renderCarrito();
+      });
+    });
+
+    document.getElementById('comprar').addEventListener('click', () => {
+      if (carrito.length === 0) return alert('Tu carrito está vacío.');
+      alert('✅ Compra realizada con éxito. ¡Gracias por confiar en BIPADEL!');
+      localStorage.removeItem('carrito');
+      location.reload();
+    });
+
+    renderCarrito();
+  </script>
+</body>
+</html>
