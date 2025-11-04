@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro | BIPADEL</title>
   <link rel="stylesheet" href="auth.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -15,21 +14,18 @@
 
   <div class="form-container">
     <h3>Crear Cuenta</h3>
-    <form>
+    <form id="registroForm">
       <label>Nombre completo</label>
-      <input type="text" placeholder="Tu nombre" required>
+      <input type="text" id="nombre" required>
 
       <label>Correo electrónico</label>
-      <input type="email" placeholder="ejemplo@correo.com" required>
+      <input type="email" id="email" required>
 
       <label>Teléfono</label>
-      <input type="tel" placeholder="600 000 000" required>
+      <input type="tel" id="telefono" required>
 
       <label>Contraseña</label>
-      <input type="password" placeholder="********" required>
-
-      <label>Confirmar contraseña</label>
-      <input type="password" placeholder="********" required>
+      <input type="password" id="password" required>
 
       <button type="submit" class="btn">Registrarse</button>
     </form>
@@ -38,5 +34,21 @@
   </div>
 
   <img class="paddle-img" src="padel.png" alt="Pala de pádel">
+
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+      const telefono = document.getElementById('telefono').value;
+      const password = document.getElementById('password').value;
+
+      const usuario = { nombre, email, telefono, password };
+      localStorage.setItem(email, JSON.stringify(usuario));
+
+      alert('✅ Registro completado. Ahora puedes iniciar sesión.');
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
 </html>
