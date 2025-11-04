@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión | BIPADEL</title>
+  <link rel="stylesheet" href="auth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h2>BIPADEL</h2>
+    <button onclick="window.location.href='index.html'">Inicio</button>
+  </header>
+
+  <div class="form-container">
+    <h3>Iniciar Sesión</h3>
+    <form>
+      <label>Correo electrónico</label>
+      <input type="email" placeholder="ejemplo@correo.com" required>
+
+      <label>Contraseña</label>
+      <input type="password" placeholder="********" required>
+
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <p class="alt">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+  </div>
+
+  <img class="paddle-img" src="padel.png" alt="Pala de pádel">
+</body>
+</html>
