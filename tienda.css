@@ -71,3 +71,17 @@ ul {
   list-style: none;
   padding: 0;
 }
+.producto img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px rgba(0,255,57,0.3);
+  transition: 0.3s;
+}
+
+.producto img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00ff37;
+}
+
