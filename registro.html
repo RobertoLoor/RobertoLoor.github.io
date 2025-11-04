@@ -50,5 +50,37 @@
       window.location.href = 'login.html';
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("TU_PUBLIC_KEY"); // sustituye por tu clave pública
+  })();
+
+  document.getElementById('registroForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const telefono = document.getElementById('telefono').value;
+    const password = document.getElementById('password').value;
+
+    const usuario = { nombre, email, telefono, password };
+    localStorage.setItem(email, JSON.stringify(usuario));
+
+    // ✉️ Enviar correo de confirmación
+    emailjs.send("service_bipadel", "template_registro", {
+      nombre: nombre,
+      email: email
+    }).then(() => {
+      alert('✅ Registro completado. Se ha enviado un correo de confirmación.');
+      window.location.href = 'login.html';
+    }).catch(err => {
+      console.error(err);
+      alert('⚠️ Registro completado, pero no se pudo enviar el correo.');
+      window.location.href = 'login.html';
+    });
+  });
+</script>
+
 </body>
 </html>
