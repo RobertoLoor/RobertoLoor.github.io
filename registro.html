@@ -38,16 +38,34 @@
   <script>
     document.getElementById('registroForm').addEventListener('submit', e => {
       e.preventDefault();
-      const nombre = document.getElementById('nombre').value;
-      const email = document.getElementById('email').value;
-      const telefono = document.getElementById('telefono').value;
-      const password = document.getElementById('password').value;
+      // Obtener datos del formulario
+const nombre = document.getElementById("nombre").value.trim();
+const email = document.getElementById("email").value.trim().toLowerCase();
+const telefono = document.getElementById("telefono").value.trim();
+const password = document.getElementById("password").value.trim();
 
-      const usuario = { nombre, email, telefono, password };
-      localStorage.setItem(email, JSON.stringify(usuario));
+// Verificar que todos los campos estén completos
+if (!nombre || !email || !telefono || !password) {
+  alert("⚠️ Por favor, completa todos los campos.");
+  return;
+}
 
-      alert('✅ Registro completado. Ahora puedes iniciar sesión.');
-      window.location.href = 'login.html';
+// Comprobar si ya existe un usuario con ese email
+if (localStorage.getItem(email)) {
+  alert("❌ Este correo ya está registrado. Por favor, inicia sesión o usa otro email.");
+  return;
+}
+
+// Crear el objeto del usuario
+const usuario = { nombre, email, telefono, password };
+
+// Guardar en localStorage
+localStorage.setItem(email, JSON.stringify(usuario));
+localStorage.setItem("usuarioActivo", JSON.stringify({ nombre }));
+
+alert("✅ Registro completado con éxito. Bienvenido/a " + nombre + "!");
+window.location.href = "login.html";
+
     });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
