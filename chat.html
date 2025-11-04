@@ -36,7 +36,17 @@
     const db = firebase.database();
 
     // Recuperar nombre del usuario (puedes guardar esto al iniciar sesión)
-    const usuario = localStorage.getItem("usuarioActivo") || "Invitado";
+let usuarioActivo = localStorage.getItem("usuarioActivo");
+let nombreUsuario = "Invitado";
+
+try {
+  if (usuarioActivo) {
+    const datos = JSON.parse(usuarioActivo);
+    nombreUsuario = datos.nombre || "Invitado";
+  }
+} catch (e) {
+  console.error("Error al leer usuarioActivo:", e);
+}
 
     // Referencia al nodo "mensajes" en la base de datos
     const chatRef = db.ref("mensajes");
@@ -58,7 +68,7 @@
       if (texto === "") return;
 
       chatRef.push({
-        usuario: usuario,
+       usuario: nombreUsuario,
         texto: texto,
         timestamp: Date.now()
       });
