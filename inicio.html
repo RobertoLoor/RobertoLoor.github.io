@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Usuario | BIPADEL</title>
+  <title>BIPADEL | Panel Principal</title>
   <link rel="stylesheet" href="inicio.css">
 </head>
 <body>
@@ -11,35 +11,32 @@
     <h2>BIPADEL</h2>
     <nav>
       <button onclick="window.location.href='reservas.html'">Reservas</button>
-      <button>Tienda</button>
-      <button>Chat</button>
-      <button id="logout">Cerrar sesión</button>
+      <button onclick="window.location.href='tienda.html'">Tienda</button>
+      <button onclick="window.location.href='chat.html'">Chat</button>
+      <button id="logout">Cerrar Sesión</button>
     </nav>
   </header>
 
   <main>
     <section class="welcome">
       <h3 id="saludo">Bienvenido/a</h3>
-      <p>Gestiona tus reservas, compra productos o comunícate con profesores.</p>
+      <p>Explora las funciones de tu cuenta BIPADEL. Gestiona tus reservas, habla con otros usuarios o compra productos exclusivos.</p>
     </section>
 
     <section class="cards">
-      <div class="card">
+      <div class="card" onclick="window.location.href='reservas.html'">
         <h4>Reservas</h4>
-        <p>Consulta, crea o cancela tus reservas.</p>
-        <button onclick="window.location.href='reservas.html'">Ir</button>
+        <p>Gestiona tus reservas y horarios fácilmente.</p>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="window.location.href='tienda.html'">
         <h4>Tienda</h4>
-        <p>Compra palas, pelotas y accesorios.</p>
-        <button>Explorar</button>
+        <p>Compra palas, pelotas y ropa técnica.</p>
       </div>
 
-      <div class="card">
+      <div class="card" onclick="window.location.href='chat.html'">
         <h4>Chat</h4>
-        <p>Habla con profesores o administración.</p>
-        <button>Entrar</button>
+        <p>Comunícate en tiempo real con jugadores y entrenadores.</p>
       </div>
     </section>
   </main>
