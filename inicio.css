@@ -126,3 +126,8 @@ body::after {
   0% { transform: translate(0,0); }
   100% { transform: translate(20px,-30px); }
 }
+
+body::after {
+  pointer-events: none; /* evita que el brillo bloquee los clics */
+}
+
