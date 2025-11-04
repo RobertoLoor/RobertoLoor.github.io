@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at bottom right, #002b5a, #000814);
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  color: #00ff37;
+  text-shadow: 0 0 10px #00ff37;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.productos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.producto {
+  border: 2px solid #00ff37;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0,255,57,0.3);
+  transition: 0.3s;
+}
+
+.producto:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ff37;
+}
+
+button {
+  border: 2px solid #00ff37;
+  background: transparent;
+  color: #00ff37;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00ff37;
+  color: #001f3f;
+}
+
+.carrito {
+  border: 2px solid rgba(0,255,57,0.5);
+  border-radius: 14px;
+  padding: 20px;
+  width: 250px;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0,255,57,0.3);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
