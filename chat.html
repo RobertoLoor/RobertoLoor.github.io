@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIPADEL | Chat</title>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+  <header>
+    <h2>BIPADEL Chat</h2>
+    <button onclick="window.location.href='inicio.html'">Volver</button>
+  </header>
+
+  <main class="chat-container">
+    <div id="messages"></div>
+    <form id="chatForm">
+      <input type="text" id="mensaje" placeholder="Escribe tu mensaje..." autocomplete="off" required>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (!user) window.location.href = 'login.html';
+
+    const chatBox = document.getElementById('messages');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('mensaje');
+
+    let mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
+
+    const render = () => {
+      chatBox.innerHTML = mensajes.map(m =>
+        `<div class="msg ${m.email === user.email ? 'mine' : 'other'}">
+          <strong>${m.nombre}:</strong> ${m.texto}
+        </div>`).join('');
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+    render();
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const texto = input.value.trim();
+      if (!texto) return;
+      mensajes.push({ nombre: user.nombre, email: user.email, texto });
+      localStorage.setItem('mensajes', JSON.stringify(mensajes));
+      input.value = '';
+      render();
+    });
+  </script>
+</body>
+</html>
