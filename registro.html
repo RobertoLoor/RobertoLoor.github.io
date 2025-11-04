@@ -11,7 +11,9 @@
     <h2>BIPADEL</h2>
     <button onclick="window.location.href='index.html'">Inicio</button>
   </header>
-<div class="bg-lines"></div>
+
+  <div class="bg-lines"></div>
+
   <div class="form-container">
     <h3>Crear Cuenta</h3>
     <form id="registroForm">
@@ -35,69 +37,58 @@
 
   <img class="paddle-img" src="padel.png" alt="Pala de pádel">
 
+  <!-- Librería de EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script>
-    document.getElementById('registroForm').addEventListener('submit', e => {
+    // Inicializar EmailJS con tu clave pública
+    (function() {
+      emailjs.init("jWOok6TjjKB7B2CUd"); // ⚠️ Sustituye por tu clave pública real
+    })();
+
+    document.getElementById('registroForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      // Obtener datos del formulario
-const nombre = document.getElementById("nombre").value.trim();
-const email = document.getElementById("email").value.trim().toLowerCase();
-const telefono = document.getElementById("telefono").value.trim();
-const password = document.getElementById("password").value.trim();
 
-// Verificar que todos los campos estén completos
-if (!nombre || !email || !telefono || !password) {
-  alert("⚠️ Por favor, completa todos los campos.");
-  return;
-}
+      // Obtener valores del formulario
+      const nombre = document.getElementById("nombre").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const telefono = document.getElementById("telefono").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-// Comprobar si ya existe un usuario con ese email
-if (localStorage.getItem(email)) {
-  alert("❌ Este correo ya está registrado. Por favor, inicia sesión o usa otro email.");
-  return;
-}
+      // Validación de campos
+      if (!nombre || !email || !telefono || !password) {
+        alert("⚠️ Por favor, completa todos los campos.");
+        return;
+      }
 
-// Crear el objeto del usuario
-const usuario = { nombre, email, telefono, password };
+      // Comprobar si ya existe el usuario
+      if (localStorage.getItem(email)) {
+        alert("❌ Este correo ya está registrado. Por favor, inicia sesión o usa otro email.");
+        return;
+      }
 
-// Guardar en localStorage
-localStorage.setItem(email, JSON.stringify(usuario));
-localStorage.setItem("usuarioActivo", JSON.stringify({ nombre }));
+      // Crear objeto de usuario
+      const usuario = { nombre, email, telefono, password };
 
-alert("✅ Registro completado con éxito. Bienvenido/a " + nombre + "!");
-window.location.href = "login.html";
+      // Guardar en localStorage
+      localStorage.setItem(email, JSON.stringify(usuario));
+      localStorage.setItem("usuarioActivo", JSON.stringify({ nombre }));
 
+      try {
+        // Enviar correo de confirmación con EmailJS
+        await emailjs.send("service_bipadel", "template_registro", {
+          nombre: nombre,
+          email: email
+        });
+
+        alert("✅ Registro completado con éxito. Se ha enviado un correo de confirmación a " + email + ".");
+        window.location.href = "login.html";
+      } catch (error) {
+        console.error("Error al enviar el correo:", error);
+        alert("⚠️ Registro completado, pero no se pudo enviar el correo de confirmación.");
+        window.location.href = "login.html";
+      }
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("jWOok6TjjKB7B2CUd"); // sustituye por tu clave pública
-  })();
-
-  document.getElementById('registroForm').addEventListener('submit', e => {
-    e.preventDefault();
-
-    const nombre = document.getElementById('nombre').value;
-    const email = document.getElementById('email').value;
-    const telefono = document.getElementById('telefono').value;
-    const password = document.getElementById('password').value;
-
-    const usuario = { nombre, email, telefono, password };
-    localStorage.setItem(email, JSON.stringify(usuario));
-
-    // ✉️ Enviar correo de confirmación
-    emailjs.send("service_bipadel", "template_registro", {
-      nombre: nombre,
-      email: email
-    }).then(() => {
-      alert('✅ Registro completado. Se ha enviado un correo de confirmación.');
-      window.location.href = 'login.html';
-    }).catch(err => {
-      console.error(err);
-      window.location.href = 'login.html';
-    });
-  });
-</script>
-
 </body>
 </html>
