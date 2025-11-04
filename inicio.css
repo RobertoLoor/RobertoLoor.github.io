@@ -42,6 +42,11 @@ nav button {
   cursor: pointer;
   transition: 0.3s;
   box-shadow: 0 0 10px var(--shadow);
+
+  /* Añadido para asegurar área clicable completa */
+  display: inline-block;
+  position: relative;
+  z-index: 5;
 }
 
 nav button:hover {
@@ -50,6 +55,7 @@ nav button:hover {
   color: var(--base);
   box-shadow: 0 0 25px var(--accent);
 }
+
 
 .welcome {
   margin-top: 80px;
