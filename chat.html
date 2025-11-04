@@ -2,53 +2,67 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BIPADEL | Chat</title>
+  <title>Chat BIPADEL</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <link rel="stylesheet" href="chat.css">
 </head>
 <body>
-  <header>
-    <h2>BIPADEL Chat</h2>
-    <button onclick="window.location.href='inicio.html'">Volver</button>
-  </header>
+  <h1>Chat BIPADEL 💬</h1>
 
-  <main class="chat-container">
-    <div id="messages"></div>
-    <form id="chatForm">
-      <input type="text" id="mensaje" placeholder="Escribe tu mensaje..." autocomplete="off" required>
-      <button type="submit">Enviar</button>
-    </form>
-  </main>
+  <div id="chat-box"></div>
+
+  <div id="chat-input">
+    <input type="text" id="mensaje" placeholder="Escribe tu mensaje..." />
+    <button onclick="enviarMensaje()">Enviar</button>
+  </div>
 
   <script>
-    const user = JSON.parse(localStorage.getItem('usuarioActivo'));
-    if (!user) window.location.href = 'login.html';
-
-    const chatBox = document.getElementById('messages');
-    const form = document.getElementById('chatForm');
-    const input = document.getElementById('mensaje');
-
-    let mensajes = JSON.parse(localStorage.getItem('mensajes')) || [];
-
-    const render = () => {
-      chatBox.innerHTML = mensajes.map(m =>
-        `<div class="msg ${m.email === user.email ? 'mine' : 'other'}">
-          <strong>${m.nombre}:</strong> ${m.texto}
-        </div>`).join('');
-      chatBox.scrollTop = chatBox.scrollHeight;
+    // 🔥 Configuración Firebase — pega aquí tu firebaseConfig real
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "bipadel-chat.firebaseapp.com",
+      databaseURL: "https://bipadel-chat-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "bipadel-chat",
+      storageBucket: "bipadel-chat.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456"
     };
 
-    render();
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const texto = input.value.trim();
-      if (!texto) return;
-      mensajes.push({ nombre: user.nombre, email: user.email, texto });
-      localStorage.setItem('mensajes', JSON.stringify(mensajes));
-      input.value = '';
-      render();
+    // Recuperar nombre del usuario del localStorage
+    const usuario = localStorage.getItem("usuarioActivo") || "Invitado";
+
+    // Referencia al nodo de mensajes
+    const chatRef = db.ref("mensajes");
+
+    // Escuchar mensajes en tiempo real
+    chatRef.on("child_added", (snapshot) => {
+      const msg = snapshot.val();
+      const chatBox = document.getElementById("chat-box");
+      const msgDiv = document.createElement("div");
+      msgDiv.classList.add("mensaje");
+      msgDiv.innerHTML = `<strong>${msg.usuario}:</strong> ${msg.texto}`;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
     });
+
+    // Enviar nuevo mensaje
+    function enviarMensaje() {
+      const texto = document.getElementById("mensaje").value.trim();
+      if (texto === "") return;
+
+      chatRef.push({
+        usuario: usuario,
+        texto: texto,
+        timestamp: Date.now()
+      });
+
+      document.getElementById("mensaje").value = "";
+    }
   </script>
 </body>
 </html>
