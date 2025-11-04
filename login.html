@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | BIPADEL</title>
   <link rel="stylesheet" href="auth.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -15,12 +14,12 @@
 
   <div class="form-container">
     <h3>Iniciar Sesión</h3>
-    <form>
+    <form id="loginForm">
       <label>Correo electrónico</label>
-      <input type="email" placeholder="ejemplo@correo.com" required>
+      <input type="email" id="email" required>
 
       <label>Contraseña</label>
-      <input type="password" placeholder="********" required>
+      <input type="password" id="password" required>
 
       <button type="submit" class="btn">Entrar</button>
     </form>
@@ -29,5 +28,21 @@
   </div>
 
   <img class="paddle-img" src="padel.png" alt="Pala de pádel">
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const usuario = JSON.parse(localStorage.getItem(email));
+
+      if (usuario && usuario.password === password) {
+        localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
+        window.location.href = 'inicio.html';
+      } else {
+        alert('❌ Credenciales incorrectas. Inténtalo de nuevo.');
+      }
+    });
+  </script>
 </body>
 </html>
