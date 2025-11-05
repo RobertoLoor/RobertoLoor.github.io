@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar Sesión | BIPADEL</title>
-  <link rel="stylesheet" href="auth.css">
-</head>
 <body>
   <header>
     <h2>BIPADEL</h2>
     <button onclick="window.location.href='index.html'">Inicio</button>
   </header>
-<div class="bg-lines"></div>
+
+  <div class="bg-lines"></div>
+
   <div class="form-container">
     <h3>Iniciar Sesión</h3>
     <form id="loginForm">
@@ -25,125 +19,137 @@
     </form>
 
     <p class="alt">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+
+    <!-- 👇 Nuevo botón dentro del cuadro -->
+    <button id="forgot-btn" class="forgot-btn">¿Has olvidado tu contraseña?</button>
   </div>
 
   <img class="paddle-img" src="padel.png" alt="Pala de pádel">
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const usuario = JSON.parse(localStorage.getItem(email));
+  <!-- MODAL DE RECUPERACIÓN -->
+  <div id="recover-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h3>Recuperar contraseña</h3>
+      <p>Introduce tu correo y te enviaremos un enlace de recuperación.</p>
+      <input type="email" id="recover-email" placeholder="tu@correo.com" />
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button id="sendRecoverLink" class="btn">Enviar enlace</button>
+        <button class="btn" onclick="closeModal()">Cancelar</button>
+      </div>
+      <p id="recover-msg" style="color:#ffcccb;margin-top:8px;"></p>
+    </div>
+  </div>
 
-      if (usuario && usuario.password === password) {
-        localStorage.setItem('usuarioActivo', JSON.stringify(usuario));
-        window.location.href = 'inicio.html';
-      } else {
-        alert('❌ Credenciales incorrectas. Inténtalo de nuevo.');
+  <!-- ✅ ESTILOS EXTRA -->
+  <style>
+    /* evita que la raqueta bloquee clics */
+    .paddle-img {
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .form-container,
+    .forgot-btn,
+    .modal {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* botón olvidé contraseña */
+    .forgot-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-accent, #00ff37);
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 14px;
+      margin-top: 12px;
+      transition: 0.3s;
+    }
+    .forgot-btn:hover {
+      text-shadow: 0 0 6px var(--color-accent);
+      transform: scale(1.05);
+    }
+
+    /* modal neofuturista */
+    .modal {
+      position: fixed; inset: 0;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(0,0,0,0.6);
+      z-index:9999;
+    }
+    .modal-content {
+      background: rgba(0,15,35,0.95);
+      padding: 24px;
+      border: 2px solid rgba(0,255,57,0.3);
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0,255,57,0.15);
+      color:#fff;
+      max-width:400px;
+      width:90%;
+      position:relative;
+      animation: glowIn 0.4s ease;
+    }
+    .modal-close {
+      position:absolute; top:10px; right:10px;
+      background:none; border:none; color:#fff;
+      font-size:22px; cursor:pointer;
+    }
+    .modal input {
+      width:100%; padding:10px; margin-top:10px;
+      border-radius:8px;
+      border:1px solid rgba(0,255,57,0.3);
+      background: rgba(255,255,255,0.05);
+      color:white;
+    }
+    @keyframes glowIn {
+      from {opacity:0; transform:scale(0.95);}
+      to {opacity:1; transform:scale(1);}
+    }
+  </style>
+
+  <!-- SCRIPT FUNCIONAL -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){ emailjs.init("jWOok6TjjKB7B2CUd"); })();
+
+    document.getElementById("forgot-btn").addEventListener("click", () => {
+      document.getElementById("recover-modal").style.display = "flex";
+    });
+
+    function closeModal(){
+      document.getElementById("recover-modal").style.display = "none";
+      document.getElementById("recover-msg").textContent = "";
+    }
+
+    document.getElementById("sendRecoverLink").addEventListener("click", async ()=>{
+      const email = document.getElementById("recover-email").value.trim().toLowerCase();
+      const msg = document.getElementById("recover-msg");
+      if(!email){ msg.textContent="Introduce tu correo."; return; }
+
+      const userData = localStorage.getItem(email);
+      if(!userData){ msg.textContent="❌ No hay ninguna cuenta con ese correo."; return; }
+
+      // Crear token temporal (válido 30 min)
+      const token = Math.random().toString(36).substring(2,10);
+      const expires = Date.now() + 30*60*1000;
+      localStorage.setItem("reset_"+token, JSON.stringify({email, expires}));
+
+      const link = window.location.origin + "/recuperar.html?token=" + token;
+      msg.textContent = "Enviando correo...";
+
+      try {
+        await emailjs.send("service_bipadel", "template_recoverlink", {
+          email: email,
+          link: link
+        });
+        msg.style.color="#9fffb3";
+        msg.textContent="✅ Enlace enviado. Revisa tu correo.";
+      } catch(e){
+        console.error(e);
+        msg.textContent="Error al enviar el correo. Revisa EmailJS.";
       }
     });
   </script>
-  <!-- Botón recuperar contraseña -->
-<button id="forgot-btn" class="forgot-btn">¿Has olvidado tu contraseña?</button>
-
-<div id="recover-modal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <h3>Recuperar contraseña</h3>
-    <p>Introduce tu correo y te enviaremos un enlace de recuperación.</p>
-    <input type="email" id="recover-email" placeholder="tu@correo.com" />
-    <div style="display:flex;gap:10px;margin-top:10px;">
-      <button id="sendRecoverLink" class="btn">Enviar enlace</button>
-      <button class="btn" onclick="closeModal()">Cancelar</button>
-    </div>
-    <p id="recover-msg" style="color:#ffcccb;margin-top:8px;"></p>
-  </div>
-</div>
-
-<style>
-.forgot-btn {
-  background: transparent;
-  border: none;
-  color: var(--color-accent, #00ff37);
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 14px;
-  margin-top: 10px;
-}
-.modal {
-  position: fixed; inset: 0;
-  display:flex; align-items:center; justify-content:center;
-  background: rgba(0,0,0,0.6);
-  z-index:9999;
-}
-.modal-content {
-  background: rgba(0,15,35,0.95);
-  padding: 24px;
-  border: 2px solid rgba(0,255,57,0.3);
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0,255,57,0.15);
-  color:#fff;
-  max-width:400px;
-  width:90%;
-  position:relative;
-}
-.modal-close {
-  position:absolute; top:10px; right:10px;
-  background:none; border:none; color:#fff;
-  font-size:22px; cursor:pointer;
-}
-.modal input {
-  width:100%; padding:10px; margin-top:10px;
-  border-radius:8px;
-  border:1px solid rgba(0,255,57,0.3);
-  background: rgba(255,255,255,0.05);
-  color:white;
-}
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-(function(){ emailjs.init("jWOok6TjjKB7B2CUd"); })(); // tu clave pública
-
-document.getElementById("forgot-btn").addEventListener("click", ()=> {
-  document.getElementById("recover-modal").style.display="flex";
-});
-function closeModal(){
-  document.getElementById("recover-modal").style.display="none";
-  document.getElementById("recover-msg").textContent="";
-}
-
-document.getElementById("sendRecoverLink").addEventListener("click", async ()=>{
-  const email = document.getElementById("recover-email").value.trim().toLowerCase();
-  const msg = document.getElementById("recover-msg");
-  if(!email){ msg.textContent="Introduce tu correo."; return; }
-
-  const userData = localStorage.getItem(email);
-  if(!userData){ msg.textContent="❌ No hay ninguna cuenta con ese correo."; return; }
-
-  // Crear token temporal (válido 30 min)
-  const token = Math.random().toString(36).substring(2,10);
-  const expires = Date.now() + 30*60*1000;
-  localStorage.setItem("reset_"+token, JSON.stringify({email, expires}));
-
-  // Enlace absoluto (ajusta si cambias rutas)
-  const link = window.location.origin + "/recuperar.html?token=" + token;
-
-  msg.textContent = "Enviando correo...";
-  try {
-    await emailjs.send("service_bipadel", "template_recoverlink", {
-      email: email,
-      link: link
-    });
-    msg.style.color="#9fffb3";
-    msg.textContent="✅ Enlace enviado. Revisa tu correo.";
-  } catch(e){
-    console.error(e);
-    msg.textContent="Error al enviar el correo. Verifica tu EmailJS.";
-  }
-});
-</script>
-
 </body>
-</html>
