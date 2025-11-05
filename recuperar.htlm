@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restablecer Contraseña | BIPADEL</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <div class="form-container">
+    <h3>Restablecer contraseña</h3>
+    <p id="statusMsg">Verificando enlace...</p>
+    <form id="resetForm" style="display:none;">
+      <label>Nueva contraseña</label>
+      <input type="password" id="newPass" required>
+      <button type="submit" class="btn">Guardar nueva contraseña</button>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    const msg = document.getElementById("statusMsg");
+    const form = document.getElementById("resetForm");
+
+    if(!token){ msg.textContent="❌ Enlace inválido."; } 
+    else {
+      const data = JSON.parse(localStorage.getItem("reset_"+token) || "null");
+      if(!data){ msg.textContent="❌ Enlace caducado o no válido."; }
+      else if(Date.now() > data.expires){
+        localStorage.removeItem("reset_"+token);
+        msg.textContent="⚠️ El enlace ha caducado.";
+      } else {
+        msg.textContent="Introduce tu nueva contraseña:";
+        form.style.display="block";
+        form.addEventListener("submit", e=>{
+          e.preventDefault();
+          const newPass = document.getElementById("newPass").value.trim();
+          if(!newPass){ alert("Introduce una contraseña."); return; }
+          const email = data.email;
+          const raw = localStorage.getItem(email);
+          if(raw){
+            const user = JSON.parse(raw);
+            user.password = newPass;
+            localStorage.setItem(email, JSON.stringify(user));
+          }
+          localStorage.removeItem("reset_"+token);
+          alert("✅ Contraseña actualizada. Puedes iniciar sesión ahora.");
+          window.location.href="login.html";
+        });
+      }
+    }
+  </script>
+</body>
+</html>
