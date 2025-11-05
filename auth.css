@@ -235,3 +235,19 @@ body::after {
   to { background-position-y: 100%; }
 }
 
+/* --- Fix de capas para elementos interactivos --- */
+
+/* Asegura que la imagen de fondo no bloquee clics */
+.paddle-img {
+  pointer-events: none; /* evita que intercepte clics */
+  z-index: 1; /* nivel bajo */
+}
+
+/* El contenido de login y el botón de recuperar contraseña van por encima */
+.form-container,
+.forgot-btn,
+.modal {
+  position: relative;
+  z-index: 10; /* por encima de la imagen */
+}
+
