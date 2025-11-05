@@ -148,16 +148,18 @@
       msg.textContent = "Enviando correo...";
 
       try {
-        await emailjs.send("service_bipadel", "template_recoverlink", {
-          email: email,
-          link: link
-        });
-        msg.style.color="#9fffb3";
-        msg.textContent="✅ Enlace enviado. Revisa tu correo.";
-      } catch(e){
-        console.error(e);
-        msg.textContent="Error al enviar el correo. Revisa EmailJS.";
-      }
+  const response = await emailjs.send("service_bipadel", "template_recoverlink", {
+    email: email,
+    link: link
+  });
+  console.log("✅ Envío correcto:", response);
+  msg.style.color = "#9fffb3";
+  msg.textContent = "✅ Enlace enviado. Revisa tu correo.";
+} catch (e) {
+  console.error("❌ Error detallado de EmailJS:", e);
+  alert("❌ Error al enviar el correo:\n" + JSON.stringify(e));
+  msg.textContent = "Error al enviar el correo. Revisa EmailJS.";
+}
     });
   </script>
 </body>
